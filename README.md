@@ -1,8 +1,14 @@
-[pdf.tocgen][tocgen]
+[pdf.tocgen](https://krasjet.com/voice/pdf.tocgen/)
 ==========
 
 [![PyPI](https://img.shields.io/pypi/v/pdf.tocgen)](https://pypi.org/project/pdf.tocgen/)
 [![build](https://github.com/Krasjet/pdf.tocgen/workflows/build/badge.svg?branch=master)](https://github.com/Krasjet/pdf.tocgen/actions?query=workflow%3Abuild)
+
+**Overview**
+
+`pdf.tocgen` is a suite of command-line tools designed for the automatic extraction and generation of tables of contents (ToC) in PDF files. This toolset leverages embedded font attributes and heading positions to deduce the fundamental structure of a PDF file's outline.
+
+Ideally suited for PDFs generated from TeX documents via `pdftex` (and related tools like `pdflatex`, `pdfxetex`), `pdf.tocgen` is also compatible with any **software-generated** PDF file. It may not be suitable for scanned PDFs. Examples of compatible software include `troff`/`groff`, Adobe InDesign, and Microsoft Word.
 
 ```
                           in.pdf
