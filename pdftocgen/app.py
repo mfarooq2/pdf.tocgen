@@ -102,19 +102,25 @@ def main():
         elif o in ("-v", "--vpos"):
             vpos = True
         elif o in ("-r", "--recipe"):
-            try:
-                recipe_file = open(a, "r", encoding=get_file_encoding(a))
-            except IOError as e:
-                print("error: can't open file for reading", file=sys.stderr)
-                print(e, file=sys.stderr)
-                sys.exit(1)
+            if opts.recipe:
+              try:
+                  recipe_file = open(opts.recipe, "r", encoding=get_file_encoding(opts.recipe))
+              except IOError as e:
+                  print("error: can't open file for reading", file=sys.stderr)
+                  print(e, file=sys.stderr)
+                  sys.exit(1)
+            else:
+                recipe_file = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8', errors='ignore')
         elif o in ("-o", "--out"):
-            try:
-                out = open(a, "w", encoding='utf-8', errors='ignore')
-            except IOError as e:
-                print("error: can't open file for writing", file=sys.stderr)
-                print(e, file=sys.stderr)
-                sys.exit(1)
+            if opts.out is None:
+                out = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='ignore')
+            else:
+              try:
+                  out = open(opts.out, "w", encoding='utf-8', errors='ignore')
+              except IOError as e:
+                  print("error: can't open file for writing", file=sys.stderr)
+                  print(e, file=sys.stderr)
+                  sys.exit(1)
         elif o in ("-g", "--debug"):
             debug = True
         elif o in ("-V", "--version"):
@@ -143,16 +149,15 @@ def main():
     except ValueError as e:
         if debug:
             raise e
-        print("error:", e, file=sys.stderr)
+        print(f"error: invalid recipe: {e}", file=sys.stderr)
         sys.exit(1)
     except IOError as e:
         if debug:
             raise e
-        print("error: unable to open file", file=sys.stderr)
-        print(e, file=sys.stderr)
+        print(f"error: unable to open file: {e}", file=sys.stderr)
         sys.exit(1)
     except KeyboardInterrupt as e:
         if debug:
             raise e
-        print("error: interrupted", file=sys.stderr)
+        print(f"error: interrupted: {e}", file=sys.stderr)
         sys.exit(1)

@@ -100,6 +100,10 @@ class Recipe:
                 if fltr.greedy:
                     # propagate all the way back to extract_block
                     raise FoundGreedy(fltr.level)
+                if fltr.font_name is not None and fltr.font_name != spn.get('font'):
+                    return None
+                if fltr.font_size is not None and fltr.font_size != spn.get('size'):
+                    return None
 
                 return Fragment(text, fltr.level)
         return None
