@@ -93,12 +93,11 @@ def main():
     out: Optional[str] = None
     debug: bool = False
     
-    if not recipe_file.isatty():
-        recipe_file.close()
+    if recipe_file.isatty():
         try:
             recipe_file = open("recipes/default.toml", "r", encoding=get_file_encoding("recipes/default.toml"))
         except IOError as e:
-            print("error: can't open file for reading", file=sys.stderr)
+            print("error: can't open default recipe file for reading", file=sys.stderr)
             print(e, file=sys.stderr)
             sys.exit(1)
 
