@@ -54,6 +54,4 @@ class ToCFilter:
         """
         if self.font_name is not None and self.font_name != spn.get('font'):
             return False
-        if self.font_size is not None and self.font_size != spn.get('size'):
-            return False
-        return True
+        return self.font_size is None or self.font_size == spn.get('size')
