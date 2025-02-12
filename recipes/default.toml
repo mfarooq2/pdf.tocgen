@@ -1,0 +1,11 @@
+[[heading]]
+level = 1
+font = { name = "Times-Bold", size = 12 }
+
+[[heading]]
+level = 2
+font = { name = "Times-Bold", size = 11 }
+
+[[heading]]
+level = 3
+font = { name = "Times-Bold", size = 10 }

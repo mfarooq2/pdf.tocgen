@@ -3,9 +3,7 @@ import os
 from mamba import description, it, before
 from pdftocgen.filter import (
     ToCFilter,
-    admits_float,
-    FontFilter,
-    BoundingBoxFilter
+    admits_float
 )
 
 dirpath = os.path.dirname(os.path.abspath(__file__))
