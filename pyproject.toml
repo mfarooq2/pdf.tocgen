@@ -37,6 +37,7 @@ mamba = "^0.11.1"
 pdfxmeta = "pdfxmeta.app:main"
 pdftocgen = "pdftocgen.app:main"
 pdftocio = "pdftocio.app:main"
+pdfgen = "pdfgen.app:main"
 
 [build-system]
 requires = ["poetry-core"]

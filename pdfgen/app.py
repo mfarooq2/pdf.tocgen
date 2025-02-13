@@ -4,8 +4,8 @@ import pdftocgen
 import argparse
 import io
 import pdftocio
-import io
 import os.path
+import toml
 
 from typing import Optional, TextIO
 from fitzutils import open_pdf, dump_toc, pprint_toc, get_file_encoding
@@ -14,6 +14,8 @@ from pdftocio.tocparser import parse_toc
 from pdftocio.tocio import write_toc, read_toc
 import io
 import os
+import toml
+from pdfxmeta.app import main as pdfxmeta_main
 
 usage_s = """
 usage: pdfgen [options] doc.pdf
@@ -67,10 +69,76 @@ options
 def create_parser():
     parser = argparse.ArgumentParser(prog='pdfgen', description='Generate PDF table of contents from a recipe file.')
     parser.add_argument('pdf_path', metavar='doc.pdf', help='path to the input PDF document')
-    parser.add_argument('-r', '--recipe', metavar='recipe.toml', help='path to the recipe file. if this flag is not specified, the default is stdin')
+    parser.add_argument('-r', '--recipe', metavar='recipe.toml', help='path to the recipe file. if this flag is not specified, the default is a generated recipe')
     parser.add_argument('-H', '--human-readable', action='store_true', help='print the toc in a readable format')
     parser.add_argument('-v', '--vpos', action='store_true', help='if this flag is set, the vertical position of each heading will be generated in the output')
     parser.add_argument('-o', '--out', metavar='file', help='path to the output file. if this flag is not specified, the default is stdout')
+    parser.add_argument('-g', '--debug', action='store_true', help='enable debug mode')
+    parser.add_argument('-V', '--version', action='store_true', help='show version number')
+    parser.add_argument('-h', '--help', action='store_true', help='show help')
+    return parser
+
+def generate_recipe(doc, keywords=""):
+    """
+    Generates a recipe for the given document.
+    
+    Args:
+        doc: The PDF document.
+        keywords: Keywords to search for in the document.
+
+    Returns:
+        A TOML formatted string that contains the recipe.
+    """
+    # call pdfxmeta to generate the recipe file
+    # this is a placeholder for now, will add the actual implementation later
+    # recipe = pdfxmeta_main(["-a","1",path_in,keywords])
+    # return recipe
+
+    # hardcode the recipe for now, will change later
+    recipe = """
+[[heading]]
+level = 1
+greedy = true
+font.name = "Times-Bold"
+font.size = 19.92530059814453
+
+[[heading]]
+level = 2
+greedy = true
+font.name = "Times-Bold"
+font.size = 11.9552001953125
+"""
+    return toml.loads(recipe)
+
+def generate_toc_from_recipe(doc, recipe_file):
+    """
+    Generates a table of contents from a given recipe file.
+
+    Args:
+        doc: The PDF document.
+        recipe_file: The path to the recipe file.
+
+    Returns:
+        The generated table of contents.
+    """
+    with open(recipe_file, "r") as f:
+        recipe = toml.loads(recipe_file)
+        return gen_toc(doc, recipe)
+
+def add_toc_to_pdf(doc, toc):
+    """
+    Adds the given table of contents to the PDF document.
+
+    Args:
+        doc: The PDF document.
+        toc: The table of contents to add.
+    """
+    # an input is given, so switch to input mode
+    # toc_file: TextIO = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8', errors='ignore')
+    # toc = parse_toc(toc_file)
+    # write_toc(doc, toc)
+
+    write_toc(doc, toc)
     parser.add_argument('-g', '--debug', action='store_true', help='enable debug mode')
     parser.add_argument('-V', '--version', action='store_true', help='show version number')
     parser.add_argument('-h', '--help', action='store_true', help='show help')

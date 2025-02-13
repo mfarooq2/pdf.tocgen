@@ -3,7 +3,6 @@
 import sys
 import os.path
 import pdftocio
-import getopt
 import io
 import argparse
 
@@ -12,12 +11,8 @@ from fitzutils import open_pdf, dump_toc, pprint_toc, get_file_encoding
 from .tocparser import parse_toc
 from .tocio import write_toc, read_toc
 
-usage_s = """
-usage: pdftocio [options] in.pdf < toc
-       pdftocio [options] in.pdf
-""".strip()
 
-help_s = r"""
+usage_s = """
 usage: pdftocio [options] in.pdf < toc
        pdftocio [options] in.pdf
 
@@ -197,7 +192,7 @@ def main():
             raise e
         print("error: interrupted", file=sys.stderr)
         sys.exit(1)
-    except Exception as e:
+   except Exception as e:
         if debug:
             raise e
         print(f"error: {e}", file=sys.stderr)
