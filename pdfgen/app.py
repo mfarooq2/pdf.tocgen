@@ -140,10 +140,6 @@ def add_toc_to_pdf(doc, toc):
     # write_toc(doc, toc)
 
     write_toc(doc, toc)
-    
-    parser.add_argument('-H', '--human-readable', action='store_true', help='print the toc in a readable format')
-    parser.add_argument('-v', '--vpos', action='store_true', help='if this flag is set, the vertical position of each heading will be generated in the output')
-    parser.add_argument('-o', '--out', metavar='file', help='path to the output file. if this flag is not specified, the default is stdout')
     parser.add_argument('-g', '--debug', action='store_true', help='enable debug mode')
     parser.add_argument('-V', '--version', action='store_true', help='show version number')
     parser.add_argument('-h', '--help', action='store_true', help='show help')
