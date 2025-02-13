@@ -123,8 +123,7 @@ def generate_toc_from_recipe(doc, recipe_file):
     """
     with open(recipe_file, "r") as f:
         recipe = toml.loads(recipe_file)
-        toc = gen_toc(doc, recipe)
-        return toc
+        return gen_toc(doc, recipe)
 
 def add_toc_to_pdf(doc, toc):
     """
